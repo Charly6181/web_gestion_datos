@@ -1,0 +1,9 @@
+AuthType Basic
+AuthName "Área Restringida - Solo Administradores"
+AuthUserFile "C:/xampp/htdocs/gestion_datos/views/.htpasswd"
+
+<Files "vistaparametrosconexion.php">
+    Require valid-user
+</Files>
+
+ErrorDocument 401 /gestion_datos/views/errors/error401.php

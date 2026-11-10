@@ -1,0 +1,344 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- BARRA SUPERIOR (NAVBAR) --- */
+.top-navbar {
+    width: 100vw !important;
+    background: rgba(11, 25, 44, 0.85) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0, 180, 216, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    z-index: 100 !important;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    /* Asegura una altura fija para calcular bien el alto del dashboard */
+}
+
+.dashboard-container {
+    display: flex;
+    flex: 1;
+    width: 100vw;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- MENÚ LATERAL (SIDEBAR) CONTRAÍBLE --- */
+.sidebar {
+    width: 60px;
+    /* Ancho contraído por defecto */
+    height: 100%;
+    background: rgba(11, 25, 44, 0.95) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(0, 180, 216, 0.3);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    padding: 20px 10px;
+    /* Reducimos padding horizontal para que quepa bien contraído */
+    transition: width 0.3s ease;
+    /* Transición suave al expandir */
+    overflow-x: hidden;
+    flex-shrink: 0;
+}
+
+/* Se expande al pasar el ratón por encima */
+.sidebar:hover {
+    width: 260px;
+    padding: 20px;
+    /* Recupera el padding original al abrirse */
+}
+
+.sidebar-logo {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 180, 216, 0.2);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.sidebar-logo h2 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.sidebar:hover .sidebar-logo h2 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-menu {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    padding: 12px 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Ocultar los textos del menú al estar contraído y mostrarlos en hover */
+.menu-text,
+.dropdown-toggle::after {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.sidebar:hover .menu-text,
+.sidebar:hover .dropdown-toggle::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-item:hover {
+    color: #ffffff;
+    background-color: rgba(0, 180, 216, 0.15);
+}
+
+.menu-item.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+}
+
+/* Submenú desplegable de Cliente */
+.submenu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 15px;
+    margin-top: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Mostrar submenús solo si el sidebar está expandido Y el acordeón está abierto (.show de bootstrap) */
+.sidebar:hover .submenu-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.submenu-item {
+    padding: 10px 14px;
+    color: #7b91ad;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.submenu-item:hover {
+    color: #ffffff;
+    background-color: rgba(0, 180, 216, 0.1);
+}
+
+/* --- ÁREA DE CONTENIDO PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    overflow-y: auto;
+}
+
+/* --- ESTILOS DEL FOOTER --- */
+.app-footer {
+    width: 100%;
+    background: rgba(11, 25, 44, 0.85) !important;
+    /* Mismo fondo translúcido oscuro */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(0, 180, 216, 0.3);
+    /* Borde cian sutil idéntico al de las tarjetas */
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    color: #94a3b8 !important;
+    font-size: 0.85rem;
+    z-index: 5;
+    text-align: center;
+    padding: 15px;
+}
+
+/* Ocultar el fondo y el brillo del botón activo cuando el sidebar está contraído */
+.sidebar:not(:hover) .menu-item.active {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #94a3b8 !important;
+}
+
+/* --- ADAPTACIÓN RESPONSIVE PARA MÓVILES --- */
+@media (max-width: 991.98px) {
+
+    /* Permitir scroll vertical en la página y evitar desbordes */
+    html,
+    body {
+        height: auto !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+
+    .dashboard-wrapper {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100vh;
+        overflow: visible !important;
+    }
+
+    .top-navbar {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
+    }
+
+    .dashboard-container {
+        flex-direction: column !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+        position: static !important;
+    }
+
+    /* El menú lateral deja de contraerse y se sitúa de forma estática arriba */
+    .sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        position: static !important;
+        padding: 15px !important;
+        box-shadow: none !important;
+    }
+
+    /* Forzar que los textos y submenús del sidebar se muestren siempre en móvil sin necesidad de hover */
+    .sidebar .sidebar-logo h2,
+    .sidebar .menu-text,
+    .sidebar .dropdown-toggle::after {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .submenu-container {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* El contenido principal fluye libremente debajo del menú con su propio espacio */
+    .main-content {
+        width: 100% !important;
+        height: auto !important;
+        position: static !important;
+        overflow: visible !important;
+        padding: 15px !important;
+    }
+
+    /* Asegurar que las tarjetas, filas y contenedores ocupen el 100% sin salirse */
+    .card,
+    .card-welcome,
+    .container,
+    .row {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 15px !important;
+    }
+
+    /* Ajustar elementos internos de la barra superior */
+    .top-navbar .container-fluid {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    /* Ajuste perfecto para tarjetas y formularios en pantallas móviles */
+    @media (max-width: 768px) {
+
+        /* Hacemos que la tarjeta ocupe el ancho completo sin forzar restricciones de columnas */
+        .card-welcome {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding: 15px !important;
+            border-radius: 1rem !important;
+        }
+
+        /* Forzamos que todos los inputs y filas se extiendan al 100% real en móvil */
+        .card-welcome .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .card-welcome [class*="col-"] {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+
+    /* Ancho fluido total para la tarjeta y contenedores en móviles */
+    @media (max-width: 768px) {
+
+        /* Forzamos que el contenedor principal de la vista no deje espacios vacíos laterales */
+        .container,
+        .container-fluid {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+
+        /* Hacemos que la tarjeta de contenido ocupe todo el ancho real del móvil */
+        .card-welcome {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 15px 10px !important;
+            border-radius: 0.75rem !important;
+        }
+
+        /* Aseguramos que las filas internas no fuercen márgenes extra */
+        .card-welcome .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .card-welcome [class*="col-"] {
+            padding-left: 4px !important;
+            padding-right: 4px !important;
+        }
+    }
+
+}

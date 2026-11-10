@@ -1,0 +1,216 @@
+body {
+    background: linear-gradient(135deg, #020817, #0b192c, #1e3e62, #0077b6);
+    background-size: 300% 300%;
+    animation: waterFlow 15s ease infinite;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes waterFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Tarjeta estilo cristal acuático integrado */
+.card-welcome {
+    background: rgba(11, 25, 44, 0.7) !important;
+    /* Fondo oscuro translúcido */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 180, 216, 0.3);
+    /* Borde sutil cian */
+    position: relative;
+    z-index: 2;
+    color: #ffffff !important;
+
+
+}
+
+@keyframes floatCard {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Ajustes de tipografía dentro de la tarjeta translúcida */
+.card-welcome h1 {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.card-welcome p {
+    color: #94a3b8 !important;
+    /* Texto secundario más suave y legible sobre oscuro */
+}
+
+/* Personalización de los botones para que vayan acorde al agua */
+.card-welcome .btn-primary {
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card-welcome .btn-primary:hover {
+    background: linear-gradient(135deg, #005f8d, #0096b4);
+    box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+}
+
+.card-welcome .btn-outline-secondary {
+    color: #90e0ef;
+    border-color: rgba(144, 224, 239, 0.4);
+    transition: all 0.3s ease;
+}
+
+.card-welcome .btn-outline-secondary:hover {
+    background-color: rgba(144, 224, 239, 0.1);
+    color: #ffffff;
+    border-color: #90e0ef;
+}
+
+/* Efecto de onda expansiva al cargar */
+/* Efecto de onda expansiva en anillo con clip-path (cero parpadeos ni líneas) */
+.card-welcome::before {
+    content: '';
+    position: absolute;
+    /* Ocupa el 100% de la tarjeta para que el clip-path se expanda desde el centro exacto */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(0, 212, 255, 0.9);
+    border-radius: 1.5rem;
+    /* Sigue la forma de las esquinas de la tarjeta */
+    box-shadow: 0 0 25px rgba(0, 180, 216, 0.8), inset 0 0 25px rgba(0, 180, 216, 0.4);
+
+    /* El truco definitivo: recortamos con un círculo que empieza en 0% y se abre hasta el 150% */
+    clip-path: circle(0% at 50% 50%);
+    animation: splashDrop 3s cubic-bezier(0.1, 0.8, 0.3, 1) 1;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@keyframes splashDrop {
+    0% {
+        clip-path: circle(0% at 50% 50%);
+        opacity: 1;
+    }
+
+    100% {
+        /* Se expande cubriendo toda la pantalla y se desvanece suavemente */
+        clip-path: circle(150% at 50% 50%);
+        opacity: 0;
+    }
+}
+
+/* Estilo para los inputs de texto translúcidos */
+.card-welcome .form-control {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(0, 180, 216, 0.4) !important;
+    color: #ffffff !important;
+}
+
+.card-welcome .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #00b4d8 !important;
+    box-shadow: 0 0 10px rgba(0, 180, 216, 0.4) !important;
+    color: #ffffff !important;
+}
+
+/* Cambiar el color del texto de placeholder a un tono claro visible */
+.card-welcome .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+    opacity: 1;
+    /* Necesario para Firefox */
+}
+
+.card-welcome .form-control:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.card-welcome .form-control::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Alerta de éxito integrada al estilo acuático */
+.card-welcome .alert-success {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    color: #6ee7b7 !important;
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+}
+
+/* Alerta de error integrada al estilo acuático */
+.card-welcome .alert-danger {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    color: fca5a5 !important;
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+}
+
+.card-welcome .alert-danger {
+    background-color: rgba(239, 68, 68, 0.25) !important;
+    border: 1px solid rgba(239, 68, 68, 0.6) !important;
+    color: #ff6b6b !important;
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+    font-weight: 600;
+}
+
+/* --- ESTILOS PROFESIONALES PARA TABLAS EN MODO CRISTAL ACUÁTICO --- */
+.card-welcome .table {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-color: rgba(0, 180, 216, 0.2) !important;
+    vertical-align: middle;
+}
+
+/* Espaciado y respiro generoso en las celdas */
+.card-welcome .table th,
+.card-welcome .table td {
+    padding: 1rem 1.25rem !important;
+    /* Da aire para que no se vea apretado */
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(0, 180, 216, 0.15) !important;
+    white-space: nowrap;
+    /* Evita que los textos largos se rompan mal */
+}
+
+/* Cabecera de la tabla con un toque sutil cian/azulado */
+.card-welcome .table thead th {
+    background: rgba(0, 180, 216, 0.1) !important;
+    color: #00b4d8 !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(0, 180, 216, 0.3) !important;
+}
+
+/* Efecto hover suave al pasar el ratón por las filas de la tabla */
+.card-welcome .table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.card-welcome .table tbody tr:hover {
+    background-color: rgba(0, 180, 216, 0.08) !important;
+}

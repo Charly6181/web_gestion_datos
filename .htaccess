@@ -1,0 +1,5 @@
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+ErrorDocument 403 /gestion_datos/views/errors/error403.php

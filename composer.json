@@ -1,0 +1,11 @@
+{
+    "name": "codev/gestion_datos",
+    "autoload": {
+        "psr-4": {
+            "Codev\\ProyectoNuevo\\": "src/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.7"
+    }
+}
